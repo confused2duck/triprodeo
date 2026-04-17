@@ -1,0 +1,152 @@
+[INFO] 04:26:10 ts-node-dev ver. 2.0.0 (using ts-node ver. 10.9.2, typescript ver. 5.9.3)
+◇ injected env (14) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+
+  ╔══════════════════════════════════════════════╗
+  ║        TRIPRODEO BACKEND SERVER              ║
+  ║  Port:  5000                              ║
+  ║  Mode:  development                   ║
+  ║  DB:    PostgreSQL (port 5432)               ║
+  ╚══════════════════════════════════════════════╝
+
+  API:       http://localhost:5000/api
+  Health:    http://localhost:5000/health
+  CMS Admin: http://localhost:5000/cms-admin
+  Sitemap:   http://localhost:5000/sitemap.xml
+  Robots:    http://localhost:5000/robots.txt
+  
+prisma:query SELECT 1
+[0mGET /health [32m200[0m 110.911 ms - 71[0m
+prisma:query BEGIN
+prisma:query SELECT COUNT(*) FROM (SELECT "public"."properties"."id" FROM "public"."properties" WHERE ("public"."properties"."status" = CAST($1::text AS "public"."PropertyStatus") AND "public"."properties"."verified" = $2) OFFSET $3) AS "sub"
+prisma:query SELECT "public"."properties"."id", "public"."properties"."hostId", "public"."properties"."name", "public"."properties"."description", "public"."properties"."location", "public"."properties"."city", "public"."properties"."state", "public"."properties"."country", "public"."properties"."latitude", "public"."properties"."longitude", "public"."properties"."pricePerNight", "public"."properties"."originalPrice", "public"."properties"."type"::text, "public"."properties"."status"::text, "public"."properties"."verified", "public"."properties"."superhost", "public"."properties"."bedrooms", "public"."properties"."bathrooms", "public"."properties"."maxGuests", "public"."properties"."images", "public"."properties"."tags", "public"."properties"."amenities", "public"."properties"."rating", "public"."properties"."reviewCount", "public"."properties"."scarcity", "public"."properties"."housePolicies", "public"."properties"."dayPackage", "public"."properties"."createdAt", "public"."properties"."updatedAt", COALESCE("aggr_selection_0_Review"."_aggr_count_reviews", 0) AS "_aggr_count_reviews" FROM "public"."properties" LEFT JOIN (SELECT "public"."reviews"."propertyId", COUNT(*) AS "_aggr_count_reviews" FROM "public"."reviews" WHERE 1=1 GROUP BY "public"."reviews"."propertyId") AS "aggr_selection_0_Review" ON ("public"."properties"."id" = "aggr_selection_0_Review"."propertyId") WHERE ("public"."properties"."status" = CAST($1::text AS "public"."PropertyStatus") AND "public"."properties"."verified" = $2) ORDER BY "public"."properties"."rating" DESC LIMIT $3 OFFSET $4
+prisma:query SELECT "public"."hosts"."id", "public"."hosts"."name", "public"."hosts"."avatar" FROM "public"."hosts" WHERE "public"."hosts"."id" IN ($1,$2) OFFSET $3
+prisma:query COMMIT
+[0mGET /api/properties?limit=2 [32m200[0m 28.947 ms - 2552[0m
+prisma:query SELECT "public"."experiences"."id", "public"."experiences"."title", "public"."experiences"."location", "public"."experiences"."price", "public"."experiences"."duration", "public"."experiences"."rating", "public"."experiences"."category", "public"."experiences"."image", "public"."experiences"."tags", "public"."experiences"."description", "public"."experiences"."createdAt" FROM "public"."experiences" WHERE 1=1 ORDER BY "public"."experiences"."createdAt" DESC OFFSET $1
+[0mGET /api/cms/experiences [32m200[0m 4.098 ms - 1402[0m
+prisma:query SELECT "public"."admins"."id", "public"."admins"."email", "public"."admins"."password", "public"."admins"."name", "public"."admins"."createdAt", "public"."admins"."updatedAt" FROM "public"."admins" WHERE ("public"."admins"."email" = $1 AND 1=1) LIMIT $2 OFFSET $3
+[0mPOST /api/auth/admin/login [32m200[0m 611.899 ms - 692[0m
+prisma:query BEGIN
+prisma:query SELECT "public"."cms_pages"."id", "public"."cms_pages"."slug", "public"."cms_pages"."updatedAt", "public"."cms_pages"."priority", "public"."cms_pages"."changefreq" FROM "public"."cms_pages" WHERE "public"."cms_pages"."status" = CAST($1::text AS "public"."CmsPageStatus") OFFSET $2
+prisma:query SELECT "public"."properties"."id", "public"."properties"."updatedAt" FROM "public"."properties" WHERE "public"."properties"."status" = CAST($1::text AS "public"."PropertyStatus") OFFSET $2
+prisma:query SELECT "public"."experiences"."id" FROM "public"."experiences" WHERE 1=1 OFFSET $1
+prisma:query SELECT "public"."trending_destinations"."id" FROM "public"."trending_destinations" WHERE 1=1 OFFSET $1
+prisma:query COMMIT
+[0mGET /sitemap.xml [32m200[0m 14.230 ms - 2711[0m
+[0mGET /robots.txt [32m200[0m 1.490 ms - 273[0m
+prisma:query SELECT "public"."hosts"."id", "public"."hosts"."email", "public"."hosts"."password", "public"."hosts"."name", "public"."hosts"."phone", "public"."hosts"."avatar", "public"."hosts"."package"::text, "public"."hosts"."status"::text, "public"."hosts"."bankDetails", "public"."hosts"."refreshToken", "public"."hosts"."joinedAt", "public"."hosts"."updatedAt" FROM "public"."hosts" WHERE ("public"."hosts"."email" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query UPDATE "public"."hosts" SET "refreshToken" = $1, "updatedAt" = $2 WHERE ("public"."hosts"."id" = $3 AND 1=1) RETURNING "public"."hosts"."id", "public"."hosts"."email", "public"."hosts"."password", "public"."hosts"."name", "public"."hosts"."phone", "public"."hosts"."avatar", "public"."hosts"."package"::text, "public"."hosts"."status"::text, "public"."hosts"."bankDetails", "public"."hosts"."refreshToken", "public"."hosts"."joinedAt", "public"."hosts"."updatedAt"
+[0mPOST /api/auth/host/login [32m200[0m 571.459 ms - 770[0m
+prisma:query SELECT "public"."hosts"."id", "public"."hosts"."email", "public"."hosts"."password", "public"."hosts"."name", "public"."hosts"."phone", "public"."hosts"."avatar", "public"."hosts"."package"::text, "public"."hosts"."status"::text, "public"."hosts"."bankDetails", "public"."hosts"."refreshToken", "public"."hosts"."joinedAt", "public"."hosts"."updatedAt" FROM "public"."hosts" WHERE ("public"."hosts"."email" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query UPDATE "public"."hosts" SET "refreshToken" = $1, "updatedAt" = $2 WHERE ("public"."hosts"."id" = $3 AND 1=1) RETURNING "public"."hosts"."id", "public"."hosts"."email", "public"."hosts"."password", "public"."hosts"."name", "public"."hosts"."phone", "public"."hosts"."avatar", "public"."hosts"."package"::text, "public"."hosts"."status"::text, "public"."hosts"."bankDetails", "public"."hosts"."refreshToken", "public"."hosts"."joinedAt", "public"."hosts"."updatedAt"
+[0mPOST /api/auth/host/login [32m200[0m 578.755 ms - 770[0m
+[INFO] 04:38:49 Restarting: C:\Users\nkara\Downloads\Triprodeo\backend\src\routes\index.ts has been modified
+◇ injected env (14) from .env // tip: ◈ secrets for agents [www.dotenvx.com]
+
+  ╔══════════════════════════════════════════════╗
+  ║        TRIPRODEO BACKEND SERVER              ║
+  ║  Port:  5000                              ║
+  ║  Mode:  development                   ║
+  ║  DB:    PostgreSQL (port 5432)               ║
+  ╚══════════════════════════════════════════════╝
+
+  API:       http://localhost:5000/api
+  Health:    http://localhost:5000/health
+  CMS Admin: http://localhost:5000/cms-admin
+  Sitemap:   http://localhost:5000/sitemap.xml
+  Robots:    http://localhost:5000/robots.txt
+  
+[INFO] 04:39:11 Restarting: C:\Users\nkara\Downloads\Triprodeo\backend\src\services\cms.service.ts has been modified
+◇ injected env (14) from .env // tip: ⌘ enable debugging { debug: true }
+
+  ╔══════════════════════════════════════════════╗
+  ║        TRIPRODEO BACKEND SERVER              ║
+  ║  Port:  5000                              ║
+  ║  Mode:  development                   ║
+  ║  DB:    PostgreSQL (port 5432)               ║
+  ╚══════════════════════════════════════════════╝
+
+  API:       http://localhost:5000/api
+  Health:    http://localhost:5000/health
+  CMS Admin: http://localhost:5000/cms-admin
+  Sitemap:   http://localhost:5000/sitemap.xml
+  Robots:    http://localhost:5000/robots.txt
+  
+[INFO] 05:03:46 Restarting: C:\Users\nkara\Downloads\Triprodeo\backend\src\routes\index.ts has been modified
+◇ injected env (14) from .env // tip: ◈ encrypted .env [www.dotenvx.com]
+ReferenceError: blogRoutes is not defined
+    at Object.<anonymous> (C:\Users\nkara\Downloads\Triprodeo\backend\src\routes\index.ts:16:21)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1812:14)
+    at Module._compile (C:\Users\nkara\Downloads\Triprodeo\backend\node_modules\source-map-support\source-map-support.js:568:25)
+    at Module.m._compile (C:\Users\nkara\AppData\Local\Temp\ts-node-dev-hook-9670956402599001.js:69:33)
+    at node:internal/modules/cjs/loader:1943:10
+    at require.extensions..jsx.require.extensions..js (C:\Users\nkara\AppData\Local\Temp\ts-node-dev-hook-9670956402599001.js:114:20)
+    at require.extensions.<computed> (C:\Users\nkara\AppData\Local\Temp\ts-node-dev-hook-9670956402599001.js:71:20)
+    at Object.nodeDevHook [as .ts] (C:\Users\nkara\Downloads\Triprodeo\backend\node_modules\ts-node-dev\lib\hook.js:63:13)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+[ERROR] 05:03:47 ReferenceError: blogRoutes is not defined
+[INFO] 05:03:49 Restarting: C:\Users\nkara\Downloads\Triprodeo\backend\src\routes\index.ts has been modified
+◇ injected env (14) from .env // tip: ◈ secrets for agents [www.dotenvx.com]
+
+  ╔══════════════════════════════════════════════╗
+  ║        TRIPRODEO BACKEND SERVER              ║
+  ║  Port:  5000                              ║
+  ║  Mode:  development                   ║
+  ║  DB:    PostgreSQL (port 5432)               ║
+  ╚══════════════════════════════════════════════╝
+
+  API:       http://localhost:5000/api
+  Health:    http://localhost:5000/health
+  CMS Admin: http://localhost:5000/cms-admin
+  Sitemap:   http://localhost:5000/sitemap.xml
+  Robots:    http://localhost:5000/robots.txt
+  
+[INFO] 05:03:55 Restarting: C:\Users\nkara\Downloads\Triprodeo\backend\src\services\cms.service.ts has been modified
+◇ injected env (14) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+
+  ╔══════════════════════════════════════════════╗
+  ║        TRIPRODEO BACKEND SERVER              ║
+  ║  Port:  5000                              ║
+  ║  Mode:  development                   ║
+  ║  DB:    PostgreSQL (port 5432)               ║
+  ╚══════════════════════════════════════════════╝
+
+  API:       http://localhost:5000/api
+  Health:    http://localhost:5000/health
+  CMS Admin: http://localhost:5000/cms-admin
+  Sitemap:   http://localhost:5000/sitemap.xml
+  Robots:    http://localhost:5000/robots.txt
+  
+[INFO] 05:04:06 Restarting: C:\Users\nkara\Downloads\Triprodeo\backend\src\services\cms.service.ts has been modified
+◇ injected env (14) from .env // tip: ⌘ enable debugging { debug: true }
+
+  ╔══════════════════════════════════════════════╗
+  ║        TRIPRODEO BACKEND SERVER              ║
+  ║  Port:  5000                              ║
+  ║  Mode:  development                   ║
+  ║  DB:    PostgreSQL (port 5432)               ║
+  ╚══════════════════════════════════════════════╝
+
+  API:       http://localhost:5000/api
+  Health:    http://localhost:5000/health
+  CMS Admin: http://localhost:5000/cms-admin
+  Sitemap:   http://localhost:5000/sitemap.xml
+  Robots:    http://localhost:5000/robots.txt
+  
+[INFO] 05:10:35 Restarting: C:\Users\nkara\Downloads\Triprodeo\backend\src\routes\cms.routes.ts has been modified
+◇ injected env (14) from .env // tip: ◈ secrets for agents [www.dotenvx.com]
+
+  ╔══════════════════════════════════════════════╗
+  ║        TRIPRODEO BACKEND SERVER              ║
+  ║  Port:  5000                              ║
+  ║  Mode:  development                   ║
+  ║  DB:    PostgreSQL (port 5432)               ║
+  ╚══════════════════════════════════════════════╝
+
+  API:       http://localhost:5000/api
+  Health:    http://localhost:5000/health
+  CMS Admin: http://localhost:5000/cms-admin
+  Sitemap:   http://localhost:5000/sitemap.xml
+  Robots:    http://localhost:5000/robots.txt
+  
