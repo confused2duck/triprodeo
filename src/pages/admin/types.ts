@@ -88,7 +88,7 @@ export interface CMSProperty {
     superhost: boolean;
   };
   reviews: CMSPropertyReview[];
-  dayPackage: CMSDayPackage;
+  dayPackage?: CMSDayPackage;
 }
 
 export interface CMSExperience {
@@ -267,6 +267,7 @@ export interface HostProperty {
   createdAt: string;
   housePolicies?: string[];
   dayPackage?: CMSDayPackage;
+  addOns?: CMSAddOn[];
 }
 
 export interface HostBooking {

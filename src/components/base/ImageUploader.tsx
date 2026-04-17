@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback } from 'react';
+import { useRef, useState, useCallback, useMemo } from 'react';
 
 interface ImageUploaderProps {
   /** Current image URLs (data URLs or remote) */
@@ -36,7 +36,7 @@ export default function ImageUploader({
   const [dragging, setDragging] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
 
-  const list = images.length > 0 ? images : [];
+  const list = useMemo(() => (images.length > 0 ? images : []), [images]);
 
   const processFiles = useCallback(async (files: FileList | File[]) => {
     const arr = Array.from(files);

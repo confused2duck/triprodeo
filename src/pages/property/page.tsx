@@ -405,7 +405,12 @@ export default function PropertyPage() {
                 <PropertyPolicies propertyType={propertyType} housePolicies={housePolicies} />
 
                 {/* Availability Calendar */}
-                <PropertyAvailabilityCalendar propertyId={cmsProperty.id} />
+                <PropertyAvailabilityCalendar
+                  checkIn={checkIn}
+                  checkOut={checkOut}
+                  onCheckInChange={setCheckIn}
+                  onCheckOutChange={setCheckOut}
+                />
 
                 {/* Reviews */}
                 <div className="border-t border-stone-100 pt-8">

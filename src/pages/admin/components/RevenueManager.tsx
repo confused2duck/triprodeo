@@ -35,8 +35,10 @@ export default function RevenueManager() {
   const platformEarnings = totalRevenue - totalHostPayouts;
   const avgBookingValue = activeBookings.length ? Math.round(totalRevenue / activeBookings.length) : 0;
 
-  const periodMonths: Record<PeriodKey, number> = { '3m': 3, '6m': 6, '12m': 12 };
-  const monthlyData = useMemo(() => generateMonthlyData(periodMonths[period]), [period]);
+  const monthlyData = useMemo(() => {
+    const periodMonths: Record<PeriodKey, number> = { '3m': 3, '6m': 6, '12m': 12 };
+    return generateMonthlyData(periodMonths[period]);
+  }, [period]);
 
   const maxRevenue = Math.max(...monthlyData.map((d) => d.revenue), 1);
   const maxBookings = Math.max(...monthlyData.map((d) => d.bookings), 1);
